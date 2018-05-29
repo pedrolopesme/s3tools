@@ -159,6 +159,18 @@
 			"revisionTime": "2018-05-14T23:38:14Z"
 		},
 		{
+			"checksumSHA1": "ZP6QI0X9BNKk8o1p3AyLfjabS20=",
+			"path": "github.com/aws/aws-sdk-go/service/s3/s3iface",
+			"revision": "85a81a15072b38078dd2114b87d34d02fa633c1c",
+			"revisionTime": "2018-05-14T23:38:14Z"
+		},
+		{
+			"checksumSHA1": "cblWrM4Jg9n5/g9cd5Mp84I+XBU=",
+			"path": "github.com/aws/aws-sdk-go/service/s3/s3manager",
+			"revision": "85a81a15072b38078dd2114b87d34d02fa633c1c",
+			"revisionTime": "2018-05-14T23:38:14Z"
+		},
+		{
 			"checksumSHA1": "llx3DydC0nTbF0cZoYUjO9P1eZw=",
 			"path": "github.com/aws/aws-sdk-go/service/sts",
 			"revision": "85a81a15072b38078dd2114b87d34d02fa633c1c",
