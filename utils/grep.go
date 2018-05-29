@@ -23,14 +23,12 @@
 package utils
 
 import (
-	"fmt"
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	"os"
-	"io"
-	"bytes"
+	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 // Grep identifies occurrences of a given string or pattern
@@ -39,24 +37,23 @@ func Grep(bucket string) {
 	files := listObjects(bucket)
 	fmt.Println(files)
 
-	cfg := aws.NewConfig()
-	awsSession := session.New(cfg)
-
-
+	sess := session.Must(session.NewSession())
+	downloader := s3manager.NewDownloader(sess)
 	buff := &aws.WriteAtBuffer{}
-	s3dl := s3manager.NewDownloader(awsSession)
 
-	n, err := s3dl.Download(buff, &s3.GetObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String("a.txt"),
-	})
+
+	numBytes, err := downloader.Download(buff,
+		&s3.GetObjectInput{
+			Bucket: aws.String(bucket),
+			Key:    aws.String(files[0]),
+		})
 
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		log.Error(err)
 	}
 
-	n2, err := io.Copy(os.Stdout, bytes.NewReader(buff.Bytes()))
+	fmt.Print(string(buff.Bytes()))
+	fmt.Print("Just read ", files[0], " - ", numBytes, " bytes")
 }
 
 func listObjects(bucket string) (files []string) {
