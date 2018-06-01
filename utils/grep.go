@@ -29,11 +29,14 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"fmt"
 	log "github.com/sirupsen/logrus"
+	"bytes"
+	"bufio"
+	"strings"
 )
 
 // Grep identifies occurrences of a given string or pattern
 // on files stored in a S3 bucket
-func Grep(bucket string) {
+func Grep(bucket string, pattern string) {
 	files := listObjects(bucket)
 	fmt.Println(files)
 
@@ -42,7 +45,7 @@ func Grep(bucket string) {
 	buff := &aws.WriteAtBuffer{}
 
 
-	numBytes, err := downloader.Download(buff,
+	_, err := downloader.Download(buff,
 		&s3.GetObjectInput{
 			Bucket: aws.String(bucket),
 			Key:    aws.String(files[0]),
@@ -52,8 +55,15 @@ func Grep(bucket string) {
 		log.Error(err)
 	}
 
-	fmt.Print(string(buff.Bytes()))
-	fmt.Print("Just read ", files[0], " - ", numBytes, " bytes")
+	scanner := bufio.NewScanner(bytes.NewReader(buff.Bytes()))
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		if strings.Contains(line, pattern) {
+			log.Info("Match : " + scanner.Text())
+		}
+	}
+	log.Info("Finished")
 }
 
 func listObjects(bucket string) (files []string) {
