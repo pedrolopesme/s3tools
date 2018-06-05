@@ -35,16 +35,12 @@ func TestGrepOnEmptyBucket(test *testing.T) {
 	assert.Equal(test,"Bucket parameter not found\n", output)
 }
 
-func TestGrepOnNilBucket(test *testing.T) {
-	assert.True(test,false)
-}
-
 func TestGrepForEmptyPattern(test *testing.T) {
-	assert.True(test,false)
-}
+	output := captureOutput(func(){
+		Grep("some-bucket", "")
+	})
 
-func TestGrepForNilPattern(test *testing.T) {
-	assert.True(test,false)
+	assert.Equal(test,"Pattern parameter not found\n", output)
 }
 
 func TestGrepOnEmptyFilesList(test *testing.T) {
