@@ -32,7 +32,7 @@ func TestGrepOnEmptyBucket(test *testing.T) {
 		Grep("", "some-pattern")
 	})
 
-	assert.Equal(test,"Bucket parameter not found\n", output)
+	assert.Equal(test,"Bucket parameter cannot be blank\n", output)
 }
 
 func TestGrepForEmptyPattern(test *testing.T) {
@@ -40,7 +40,7 @@ func TestGrepForEmptyPattern(test *testing.T) {
 		Grep("some-bucket", "")
 	})
 
-	assert.Equal(test,"Pattern parameter not found\n", output)
+	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
 }
 
 func TestGrepOnEmptyFilesList(test *testing.T) {

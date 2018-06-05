@@ -38,12 +38,12 @@ import (
 // on files stored in a S3 bucket
 func Grep(bucket string, pattern string) {
 	if bucket == "" {
-		fmt.Println("Bucket parameter not found")
+		fmt.Println("Bucket parameter cannot be blank")
 		return
 	}
 
 	if pattern == "" {
-		fmt.Println("Pattern parameter not found")
+		fmt.Println("Pattern parameter cannot be blank")
 		return
 	}
 
