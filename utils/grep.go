@@ -23,27 +23,31 @@
 package utils
 
 import (
+	"bufio"
+	"bytes"
+	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	"fmt"
 	log "github.com/sirupsen/logrus"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"bufio"
-	"bytes"
 	"strings"
 )
 
 // Grep identifies occurrences of a given string or pattern
 // on files stored in a S3 bucket
 func Grep(bucket string, pattern string) {
+	if bucket == "" {
+		fmt.Println("Bucket parameter not found")
+		return
+	}
+
 	files := ListObjects(bucket)
 	fmt.Println(files)
 
 	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
 	buff := &aws.WriteAtBuffer{}
-
 
 	for _, file := range files {
 		log.Info("Searching in " + file)
