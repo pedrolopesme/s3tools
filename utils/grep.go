@@ -42,6 +42,11 @@ func Grep(bucket string, pattern string) {
 		return
 	}
 
+	if pattern == "" {
+		fmt.Println("Pattern parameter not found")
+		return
+	}
+
 	files := ListObjects(bucket)
 	fmt.Println(files)
 
