@@ -26,11 +26,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	log "github.com/sirupsen/logrus"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"strings"
 )
 
@@ -49,33 +44,22 @@ func Grep(bucket string, pattern string) {
 
 	files := ListObjects(bucket)
 
-	sess := session.Must(session.NewSession())
-	downloader := s3manager.NewDownloader(sess)
-	buff := &aws.WriteAtBuffer{}
-
 	for _, file := range files {
-		log.Info("Searching in " + file)
-
-		_, err := downloader.Download(buff,
-			&s3.GetObjectInput{
-				Bucket: aws.String(bucket),
-				Key:    aws.String(file),
-			})
-
+		buff, err := file.GetBufferedContent()
 		if err != nil {
-			log.Error(err)
+			continue
 		}
 
-		scanner := bufio.NewScanner(bytes.NewReader(buff.Bytes()))
+		// TODO Extract it to a new func
+		scanner := bufio.NewScanner(bytes.NewReader(buff))
 		for scanner.Scan() {
 			line := scanner.Text()
-
 			if strings.Contains(line, pattern) {
-				log.Info("Match : " + scanner.Text())
+				// TODO create a printer func
+				fmt.Println(file.Path + " : " + scanner.Text())
 			}
 		}
 	}
 
-
-	log.Info("Finished")
+	fmt.Println("Grep finished.")
 }
