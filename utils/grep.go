@@ -48,7 +48,6 @@ func Grep(bucket string, pattern string) {
 	}
 
 	files := ListObjects(bucket)
-	fmt.Println(files)
 
 	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
