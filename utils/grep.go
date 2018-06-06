@@ -44,7 +44,8 @@ func GrepFile(file S3File, pattern string) {
 		return
 	}
 
-	scanner := bufio.NewScanner(bytes.NewReader(buff))
+	reader := bytes.NewReader(buff)
+	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		line := scanner.Text()
 		GrepLine(file.Path, line, pattern)
