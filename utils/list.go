@@ -6,7 +6,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-func ListObjects(bucket string) (files []string) {
+// ListObjects retrieves a list of files from a given
+// bucket and return a S3File list.
+func ListObjects(bucket string) (files []S3File) {
 	if len(bucket) < 2 {
 		fmt.Println("you must specify a bucket")
 		return
@@ -24,7 +26,7 @@ func ListObjects(bucket string) (files []string) {
 		i++
 
 		for _, obj := range p.Contents {
-			files = append(files, string(*obj.Key))
+			files = append(files, S3File{Bucket: bucket, Path: string(*obj.Key)})
 		}
 		return true
 	})
