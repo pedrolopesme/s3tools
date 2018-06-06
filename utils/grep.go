@@ -29,6 +29,28 @@ import (
 	"strings"
 )
 
+// GrepLine search for a string pattern in a line
+func GrepLine(filePath string, line string, pattern string) {
+	if strings.Contains(line, pattern) {
+		fmt.Println(filePath + " : " + line)
+	}
+}
+
+// GrepFile scans an entire file and search
+// for a pattern line by line
+func GrepFile(file S3File, pattern string) {
+	buff, err := file.GetBufferedContent()
+	if err != nil {
+		return
+	}
+
+	scanner := bufio.NewScanner(bytes.NewReader(buff))
+	for scanner.Scan() {
+		line := scanner.Text()
+		GrepLine(file.Path, line, pattern)
+	}
+}
+
 // Grep identifies occurrences of a given string or pattern
 // on files stored in a S3 bucket
 func Grep(bucket string, pattern string) {
@@ -42,24 +64,8 @@ func Grep(bucket string, pattern string) {
 		return
 	}
 
-	files := ListObjects(bucket)
-
-	for _, file := range files {
-		buff, err := file.GetBufferedContent()
-		if err != nil {
-			continue
-		}
-
-		// TODO Extract it to a new func
-		scanner := bufio.NewScanner(bytes.NewReader(buff))
-		for scanner.Scan() {
-			line := scanner.Text()
-			if strings.Contains(line, pattern) {
-				// TODO create a printer func
-				fmt.Println(file.Path + " : " + scanner.Text())
-			}
-		}
+	for _, file := range ListObjects(bucket) {
+		GrepFile(file, pattern)
 	}
-
 	fmt.Println("Grep finished.")
 }
