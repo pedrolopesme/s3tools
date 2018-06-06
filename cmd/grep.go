@@ -32,6 +32,8 @@ import (
 var grepCmd = &cobra.Command{
 	Use:   "grep",
 	Short: "Search for files in your bucket containing a given text or pattern",
+
+	// TODO implement Long description
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -39,7 +41,8 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.Grep("mybucket")
+		// TODO pass parameters from CLI
+		utils.Grep("s3tools-bucket-test", "erro")
 	},
 }
 
