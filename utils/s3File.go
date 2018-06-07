@@ -7,13 +7,26 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-type S3File struct {
+type S3File interface {
+	GetBucket() string
+	GetPath() string
+	GetBufferedContent() ([]byte, error)
+}
+
+type S3BufferedFile struct {
 	Bucket string
 	Path   string
 }
 
-func (f *S3File) GetBufferedContent() (buf []byte, err error) {
+func (f S3BufferedFile) GetBucket() (string) {
+	return f.Bucket
+}
 
+func (f S3BufferedFile) GetPath() (string) {
+	return f.Path
+}
+
+func (f S3BufferedFile) GetBufferedContent() (buf []byte, err error) {
 	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
 	awsBuffer := &aws.WriteAtBuffer{}
