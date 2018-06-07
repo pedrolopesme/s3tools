@@ -8,10 +8,11 @@ import (
 
 // ListObjects retrieves a list of files from a given
 // bucket and return a S3File list.
+// TODO refactor this
 func ListObjects(bucket string) (files []S3File) {
 	if len(bucket) < 2 {
 		fmt.Println("you must specify a bucket")
-		return
+		return nil
 	}
 
 	sess := session.Must(session.NewSession())
@@ -26,7 +27,7 @@ func ListObjects(bucket string) (files []S3File) {
 		i++
 
 		for _, obj := range p.Contents {
-			files = append(files, S3File{Bucket: bucket, Path: string(*obj.Key)})
+			files = append(files, S3BufferedFile{Bucket: bucket, Path: string(*obj.Key)})
 		}
 		return true
 	})
