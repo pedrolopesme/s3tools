@@ -8,7 +8,6 @@ import (
 
 // ListObjects retrieves a list of files from a given
 // bucket and return a S3File list.
-// TODO refactor this
 func ListObjects(bucket string) (files []S3File) {
 	if len(bucket) < 2 {
 		fmt.Println("you must specify a bucket")
@@ -16,18 +15,14 @@ func ListObjects(bucket string) (files []S3File) {
 	}
 
 	sess := session.Must(session.NewSession())
-
 	svc := s3.New(sess)
-
-	i := 0
 	err := svc.ListObjectsPages(&s3.ListObjectsInput{
 		Bucket: &bucket,
-	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
-		fmt.Println("Page,", i)
-		i++
 
-		for _, obj := range p.Contents {
-			files = append(files, S3BufferedFile{Bucket: bucket, Path: string(*obj.Key)})
+	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
+		for _, s3Object := range p.Contents {
+			file := S3BufferedFile{Bucket: bucket, Path: string(*s3Object.Key)}
+			files = append(files, file)
 		}
 		return true
 	})
