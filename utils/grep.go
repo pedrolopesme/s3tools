@@ -29,6 +29,13 @@ import (
 	"strings"
 )
 
+
+type S3File interface {
+	GetBucket() string
+	GetPath() string
+	GetBufferedContent() ([]byte, error)
+}
+
 // GrepLine search for a string pattern in a line
 func GrepLine(filePath string, line string, pattern string) {
 	if strings.Contains(line, pattern) {
