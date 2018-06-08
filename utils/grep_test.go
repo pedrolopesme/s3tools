@@ -27,25 +27,31 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGrepOnEmptyBucket(test *testing.T) {
+func TestGrepFilesOnEmptyBucket(test *testing.T) {
 	output := captureOutput(func(){
-		Grep("", "some-pattern")
+		GrepFiles("", "some-pattern")
 	})
 
 	assert.Equal(test,"Bucket parameter cannot be blank\n", output)
 }
 
-func TestGrepForEmptyPattern(test *testing.T) {
+func TestGrepFilesForEmptyPattern(test *testing.T) {
 	output := captureOutput(func(){
-		Grep("some-bucket", "")
+		GrepFiles("some-bucket", "")
 	})
 
 	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
 }
 
-func TestGrepOnEmptyFilesList(test *testing.T) {
-	assert.True(test,false)
+
+func TestGrepFileForEmptyPattern(test *testing.T) {
+	output := captureOutput(func(){
+		GrepFile(S3BufferedFile{}, "")
+	})
+
+	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
 }
+
 
 func TestGrepWithoutMatching(test *testing.T) {
 	assert.True(test,false)
