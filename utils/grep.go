@@ -39,6 +39,12 @@ func GrepLine(filePath string, line string, pattern string) {
 // GrepFile scans an entire file and search
 // for a pattern line by line
 func GrepFile(file S3File, pattern string) {
+
+	if pattern == "" {
+		fmt.Println("Pattern parameter cannot be blank")
+		return
+	}
+
 	buff, err := file.GetBufferedContent()
 	if err != nil {
 		return
@@ -52,9 +58,9 @@ func GrepFile(file S3File, pattern string) {
 	}
 }
 
-// Grep identifies occurrences of a given string or pattern
+// GrepFiles identifies occurrences of a given string or pattern
 // on files stored in a S3 bucket
-func Grep(bucket string, pattern string) {
+func GrepFiles(bucket string, pattern string) {
 	if bucket == "" {
 		fmt.Println("Bucket parameter cannot be blank")
 		return
@@ -68,5 +74,5 @@ func Grep(bucket string, pattern string) {
 	for _, file := range ListObjects(bucket) {
 		GrepFile(file, pattern)
 	}
-	fmt.Println("Grep finished.")
+	fmt.Println("GrepFiles finished.")
 }
