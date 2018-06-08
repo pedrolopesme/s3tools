@@ -21,7 +21,7 @@ func ListObjects(bucket string) (files []S3File) {
 
 	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
 		for _, s3Object := range p.Contents {
-			file := S3BufferedFile{Bucket: bucket, Path: string(*s3Object.Key)}
+			file := NewBufferedFile(bucket, string(*s3Object.Key))
 			files = append(files, file)
 		}
 		return true
