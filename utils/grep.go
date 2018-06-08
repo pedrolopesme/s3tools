@@ -39,6 +39,10 @@ func GrepLine(filePath string, line string, pattern string) {
 // GrepFile scans an entire file and search
 // for a pattern line by line
 func GrepFile(file S3File, pattern string) {
+	if file == nil {
+		fmt.Println("File parameter cannot be blank")
+		return
+	}
 
 	if pattern == "" {
 		fmt.Println("Pattern parameter cannot be blank")
