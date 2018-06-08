@@ -43,7 +43,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		bucket := args[0]
 		pattern := args[1]
-		utils.Grep(bucket, pattern)
+		utils.GrepFiles(bucket, pattern)
 	},
 }
 
