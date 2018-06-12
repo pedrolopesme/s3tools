@@ -59,8 +59,20 @@ func TestGrepFileForEmptyPattern(test *testing.T) {
 	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
 }
 
+func TestGrepFileWithNilBuffer(test *testing.T) {
+	output := captureOutput(func(){
+		GrepFile(NewMockedFile(nil), "some-pattern")
+	})
+
+	assert.Equal(test,"", output)
+}
+
 func TestGrepWithoutMatching(test *testing.T) {
-	assert.True(test,false)
+	content := []byte("dummy value")
+	output := captureOutput(func(){
+		GrepFile(NewMockedFile(content), "some-pattern")
+	})
+	assert.Equal(test,"", output)
 }
 
 func TestGrepWithMatchingInOneFile(test *testing.T) {
