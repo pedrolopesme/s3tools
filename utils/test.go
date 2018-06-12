@@ -23,3 +23,16 @@ func captureOutput(f func()) string {
 	io.Copy(&buf, r)
 	return buf.String()
 }
+
+type mockedEmptyFile struct {
+	returnValue []byte
+	S3BufferedFile
+}
+
+func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
+	return f.returnValue, nil
+}
+
+func NewMockedFile(returnedValue []byte) mockedEmptyFile {
+	return mockedEmptyFile{ returnValue:returnedValue }
+}
