@@ -20,12 +20,11 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/pedrolopesme/s3tools/utils"
+	"github.com/spf13/cobra"
 )
 
 // grepCmd represents the grep command
@@ -56,4 +55,3 @@ func init() {
 	// is called directly, e.g.:
 	// grepCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
