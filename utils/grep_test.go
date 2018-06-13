@@ -75,14 +75,20 @@ func TestGrepWithoutMatching(test *testing.T) {
 	assert.Equal(test,"", output)
 }
 
-func TestGrepWithMatchingInOneFile(test *testing.T) {
-	assert.True(test,false)
-}
+func TestGrepWithMatching(test *testing.T) {
+	files := NewMockedFile([]byte("dummy value 1"))
 
-func TestGrepWithMatchingInMultipleFiles(test *testing.T) {
-	assert.True(test,false)
+	output := captureOutput(func(){
+		GrepFile(files, "dummy")
+	})
+	assert.Equal(test,"test : dummy value 1\n", output)
 }
 
 func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
-	assert.True(test,false)
+	files := NewMockedFile([]byte("dummy value 1, dummy value 2, dummy value 3"))
+
+	output := captureOutput(func(){
+		GrepFile(files, "dummy")
+	})
+	assert.Equal(test,"test : dummy value 1, dummy value 2, dummy value 3\n", output)
 }
