@@ -34,5 +34,11 @@ func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
 }
 
 func NewMockedFile(returnedValue []byte) mockedEmptyFile {
-	return mockedEmptyFile{ returnValue:returnedValue }
+	return mockedEmptyFile{
+		returnValue:returnedValue,
+		S3BufferedFile: S3BufferedFile{
+			Bucket: "test",
+			Path: "test",
+		},
+	}
 }
