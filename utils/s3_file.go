@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
 type S3BufferedFile struct {
@@ -13,12 +13,12 @@ type S3BufferedFile struct {
 }
 
 // GetBucket returns file path
-func (f S3BufferedFile) GetBucket() (string) {
+func (f S3BufferedFile) GetBucket() string {
 	return f.Bucket
 }
 
 // GetPath returns file path
-func (f S3BufferedFile) GetPath() (string) {
+func (f S3BufferedFile) GetPath() string {
 	return f.Path
 }
 
