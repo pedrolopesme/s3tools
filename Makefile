@@ -23,4 +23,4 @@ clean:
 
 fmt:
 	@echo "Running gofmt for all project files"
-	$(GOFMT) -w *.go
+	$(GOFMT) -w */*.go
