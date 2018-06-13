@@ -23,72 +23,72 @@
 package utils
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestGrepFilesOnEmptyBucket(test *testing.T) {
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFiles("", "some-pattern")
 	})
 
-	assert.Equal(test,"Bucket parameter cannot be blank\n", output)
+	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
 }
 
 func TestGrepFilesForEmptyPattern(test *testing.T) {
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFiles("some-bucket", "")
 	})
 
-	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
+	assert.Equal(test, "Pattern parameter cannot be blank\n", output)
 }
 
 func TestGrepFileForNilFile(test *testing.T) {
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(nil, "some-pattern")
 	})
 
-	assert.Equal(test,"File parameter cannot be blank\n", output)
+	assert.Equal(test, "File parameter cannot be blank\n", output)
 }
 
 func TestGrepFileForEmptyPattern(test *testing.T) {
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(S3BufferedFile{}, "")
 	})
 
-	assert.Equal(test,"Pattern parameter cannot be blank\n", output)
+	assert.Equal(test, "Pattern parameter cannot be blank\n", output)
 }
 
 func TestGrepFileWithNilBuffer(test *testing.T) {
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(NewMockedFile(nil), "some-pattern")
 	})
 
-	assert.Equal(test,"", output)
+	assert.Equal(test, "", output)
 }
 
 func TestGrepWithoutMatching(test *testing.T) {
 	content := []byte("dummy value")
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(NewMockedFile(content), "some-pattern")
 	})
-	assert.Equal(test,"", output)
+	assert.Equal(test, "", output)
 }
 
 func TestGrepWithMatching(test *testing.T) {
 	files := NewMockedFile([]byte("dummy value 1"))
 
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test,"test : dummy value 1\n", output)
+	assert.Equal(test, "test : dummy value 1\n", output)
 }
 
 func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
 	files := NewMockedFile([]byte("dummy value 1, dummy value 2, dummy value 3"))
 
-	output := captureOutput(func(){
+	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test,"test : dummy value 1, dummy value 2, dummy value 3\n", output)
+	assert.Equal(test, "test : dummy value 1, dummy value 2, dummy value 3\n", output)
 }

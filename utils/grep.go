@@ -29,7 +29,6 @@ import (
 	"strings"
 )
 
-
 type S3File interface {
 	GetBucket() string
 	GetPath() string
