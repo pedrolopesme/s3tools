@@ -29,7 +29,7 @@ import (
 	"strings"
 )
 
-type S3File interface {
+type s3File interface {
 	GetBucket() string
 	GetPath() string
 	GetBufferedContent() ([]byte, error)
@@ -44,7 +44,7 @@ func GrepLine(filePath string, line string, pattern string) {
 
 // GrepFile scans an entire file and search
 // for a pattern line by line
-func GrepFile(file S3File, pattern string) {
+func GrepFile(file s3File, pattern string) {
 	if file == nil {
 		fmt.Println("File parameter cannot be blank")
 		return
