@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"os"
 	"bytes"
 	"io"
+	"os"
 )
 
 // Captures the output by replacing the
@@ -35,10 +35,10 @@ func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
 
 func NewMockedFile(returnedValue []byte) mockedEmptyFile {
 	return mockedEmptyFile{
-		returnValue:returnedValue,
+		returnValue: returnedValue,
 		S3BufferedFile: S3BufferedFile{
 			Bucket: "test",
-			Path: "test",
+			Path:   "test",
 		},
 	}
 }
