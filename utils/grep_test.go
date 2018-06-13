@@ -61,7 +61,7 @@ func TestGrepFileForEmptyPattern(test *testing.T) {
 
 func TestGrepFileWithNilBuffer(test *testing.T) {
 	output := captureOutput(func() {
-		GrepFile(NewMockedFile(nil), "some-pattern")
+		GrepFile(newMockedFile(nil), "some-pattern")
 	})
 
 	assert.Equal(test, "", output)
@@ -70,13 +70,13 @@ func TestGrepFileWithNilBuffer(test *testing.T) {
 func TestGrepWithoutMatching(test *testing.T) {
 	content := []byte("dummy value")
 	output := captureOutput(func() {
-		GrepFile(NewMockedFile(content), "some-pattern")
+		GrepFile(newMockedFile(content), "some-pattern")
 	})
 	assert.Equal(test, "", output)
 }
 
 func TestGrepWithMatching(test *testing.T) {
-	files := NewMockedFile([]byte("dummy value 1"))
+	files := newMockedFile([]byte("dummy value 1"))
 
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
@@ -85,7 +85,7 @@ func TestGrepWithMatching(test *testing.T) {
 }
 
 func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
-	files := NewMockedFile([]byte("dummy value 1, dummy value 2, dummy value 3"))
+	files := newMockedFile([]byte("dummy value 1, dummy value 2, dummy value 3"))
 
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
