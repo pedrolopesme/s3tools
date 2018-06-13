@@ -18,7 +18,6 @@ func ListObjects(bucket string) (files []S3File) {
 	svc := s3.New(sess)
 	err := svc.ListObjectsPages(&s3.ListObjectsInput{
 		Bucket: &bucket,
-
 	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
 		for _, s3Object := range p.Contents {
 			file := NewBufferedFile(bucket, string(*s3Object.Key))
