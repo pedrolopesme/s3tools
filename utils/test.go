@@ -26,7 +26,7 @@ func captureOutput(f func()) string {
 
 type mockedEmptyFile struct {
 	returnValue []byte
-	S3BufferedFile
+	s3BufferedFile
 }
 
 func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
@@ -36,7 +36,7 @@ func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
 func NewMockedFile(returnedValue []byte) mockedEmptyFile {
 	return mockedEmptyFile{
 		returnValue: returnedValue,
-		S3BufferedFile: S3BufferedFile{
+		s3BufferedFile: s3BufferedFile{
 			Bucket: "test",
 			Path:   "test",
 		},

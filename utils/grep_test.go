@@ -53,7 +53,7 @@ func TestGrepFileForNilFile(test *testing.T) {
 
 func TestGrepFileForEmptyPattern(test *testing.T) {
 	output := captureOutput(func() {
-		GrepFile(S3BufferedFile{}, "")
+		GrepFile(s3BufferedFile{}, "")
 	})
 
 	assert.Equal(test, "Pattern parameter cannot be blank\n", output)

@@ -7,24 +7,24 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-type S3BufferedFile struct {
+type s3BufferedFile struct {
 	Bucket string
 	Path   string
 }
 
 // GetBucket returns file path
-func (f S3BufferedFile) GetBucket() string {
+func (f s3BufferedFile) GetBucket() string {
 	return f.Bucket
 }
 
 // GetPath returns file path
-func (f S3BufferedFile) GetPath() string {
+func (f s3BufferedFile) GetPath() string {
 	return f.Path
 }
 
 // GetBufferedContent creates a S3 session and reads the content
 // of a file writing it into a buffer.
-func (f S3BufferedFile) GetBufferedContent() (buf []byte, err error) {
+func (f s3BufferedFile) GetBufferedContent() (buf []byte, err error) {
 	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
 	awsBuffer := &aws.WriteAtBuffer{}
@@ -43,11 +43,11 @@ func (f S3BufferedFile) GetBufferedContent() (buf []byte, err error) {
 	return
 }
 
-// NewBufferedFile returns a concrete type of S3BufferedFile
+// NewBufferedFile returns a concrete type of s3BufferedFile
 // properly initialized. Following recommendations found at
 // https://github.com/golang/go/wiki/CodeReviewComments#interfaces
-func NewBufferedFile(bucket string, path string) S3BufferedFile {
-	return S3BufferedFile{
+func NewBufferedFile(bucket string, path string) s3BufferedFile {
+	return s3BufferedFile{
 		Bucket: bucket,
 		Path:   path,
 	}
