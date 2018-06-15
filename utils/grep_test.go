@@ -81,7 +81,7 @@ func TestGrepWithMatching(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test, "test : dummy value 1\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
 }
 
 func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
@@ -90,5 +90,5 @@ func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test, "test : dummy value 1, dummy value 2, dummy value 3\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1, dummy value 2, dummy value 3\n", output)
 }
