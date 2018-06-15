@@ -25,6 +25,7 @@ package cmd
 import (
 	"github.com/pedrolopesme/s3tools/utils"
 	"github.com/spf13/cobra"
+	"fmt"
 )
 
 // grepCmd represents the grep command
@@ -38,11 +39,17 @@ s3tools grep my-bucket "search string"`,
 	Run: func(cmd *cobra.Command, args []string) {
 		bucket := args[0]
 		pattern := args[1]
-		utils.GrepFiles(bucket, pattern)
+
+		path, err := cmd.Flags().GetString("path")
+		if err != nil {
+			fmt.Println("It was impossible to parse path parameter")
+		}
+		utils.GrepFiles(bucket, pattern, path)
 	},
 }
 
 func init() {
+	grepCmd.Flags().StringP("path", "p", "", "path where grep will look for")
 	rootCmd.AddCommand(grepCmd)
 
 	// Here you will define your flags and configuration settings.
@@ -54,5 +61,4 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// grepCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	grepCmd.Flags().StringP("path", "p", "", "path where grep will look for")
 }
