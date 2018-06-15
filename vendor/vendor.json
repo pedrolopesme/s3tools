@@ -264,6 +264,12 @@
 			"revisionTime": "2018-05-14T23:38:14Z"
 		},
 		{
+			"checksumSHA1": "SWxBLyn4narNq2J2+hKyC2pNnPQ=",
+			"path": "github.com/logrusorgru/aurora",
+			"revision": "d694e6f975a9109e2b063829d563a7c153c4b53c",
+			"revisionTime": "2018-04-19T16:45:47Z"
+		},
+		{
 			"checksumSHA1": "AYZGozgchqe4WcKH/jCZI1flnP8=",
 			"path": "github.com/magiconair/properties",
 			"revision": "c2353362d570a7bfa228149c62842019201cfb71",
