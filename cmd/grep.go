@@ -32,7 +32,7 @@ var grepCmd = &cobra.Command{
 	Use:   "grep",
 	Short: "Search for files in your bucket containing a given text or pattern",
 
-	Long: `With Grep you can search for files stored at you bucket. For example:
+	Long: `With Grep you can search for files stored at you bucket recursively. For example:
 
 s3tools grep my-bucket "search string"`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -54,4 +54,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// grepCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	grepCmd.Flags().StringP("path", "p", "", "path where grep will look for")
 }
