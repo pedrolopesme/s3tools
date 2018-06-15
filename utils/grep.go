@@ -71,7 +71,7 @@ func GrepFile(file s3File, pattern string) {
 
 // GrepFiles identifies occurrences of a given string or pattern
 // on files stored in a S3 bucket
-func GrepFiles(bucket string, pattern string) {
+func GrepFiles(bucket string, pattern string, path string) {
 	if bucket == "" {
 		fmt.Println("Bucket parameter cannot be blank")
 		return
@@ -82,7 +82,7 @@ func GrepFiles(bucket string, pattern string) {
 		return
 	}
 
-	for _, file := range ListObjects(bucket) {
+	for _, file := range ListObjects(bucket, path) {
 		GrepFile(file, pattern)
 	}
 	fmt.Println("GrepFiles finished.")
