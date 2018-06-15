@@ -29,7 +29,7 @@ import (
 
 func TestGrepFilesOnEmptyBucket(test *testing.T) {
 	output := captureOutput(func() {
-		GrepFiles("", "some-pattern")
+		GrepFiles("", "some-pattern", "")
 	})
 
 	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
@@ -37,7 +37,7 @@ func TestGrepFilesOnEmptyBucket(test *testing.T) {
 
 func TestGrepFilesForEmptyPattern(test *testing.T) {
 	output := captureOutput(func() {
-		GrepFiles("some-bucket", "")
+		GrepFiles("some-bucket", "", "")
 	})
 
 	assert.Equal(test, "Pattern parameter cannot be blank\n", output)
