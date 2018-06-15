@@ -37,6 +37,7 @@ These are the main external packages that make up Call It:
 
 | packages | description |
 |---|---|
+| **[Aurora](https://github.com/logrusorgru/aurora)** | **Ultimate ANSI colors for Golang. The package supports Printf/Sprintf etc.** |
 | **[AWS SDK Go](https://github.com/aws/aws-sdk-go)** | **AWS SDK for the Go programming language** |
 | **[Cobra](https://github.com/spf13/cobra)** | **A Commander for modern Go CLI interactions** |
 | **[Fsnotify](https://github.com/fsnotify/fsnotify)** | **Cross-platform file system notifications for Go.** |
