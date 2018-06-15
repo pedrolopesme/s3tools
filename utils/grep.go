@@ -27,6 +27,7 @@ import (
 	"bytes"
 	"fmt"
 	"strings"
+	. "github.com/logrusorgru/aurora"
 )
 
 type s3File interface {
@@ -38,7 +39,7 @@ type s3File interface {
 // GrepLine search for a string pattern in a line
 func GrepLine(filePath string, line string, pattern string) {
 	if strings.Contains(line, pattern) {
-		fmt.Println(filePath + " : " + line)
+		fmt.Println(Bold(Cyan(filePath)), ":", line)
 	}
 }
 
