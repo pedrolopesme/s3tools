@@ -82,7 +82,7 @@ func GrepFiles(bucket string, pattern string, path string) {
 		return
 	}
 
-	for _, file := range ListObjects(bucket, path) {
+	for _, file := range listObjects(bucket, path) {
 		GrepFile(file, pattern)
 	}
 	fmt.Println("GrepFiles finished.")
