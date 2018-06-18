@@ -28,7 +28,11 @@ import (
 )
 
 func TestListObjectsWithoutBucket(test *testing.T) {
-	assert.True(test, false)
+	output := captureOutput(func() {
+		listObjects("", "some-path")
+	})
+
+	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
 }
 
 func TestListObjectsWithoutAwsSession(test *testing.T) {
