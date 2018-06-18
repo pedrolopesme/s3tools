@@ -7,11 +7,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 )
 
-// ListObjects retrieves a list of files from a given
+// listObjects retrieves a list of files from a given
 // bucket and return a s3File list.
-func ListObjects(bucket string, path string) (files []s3File) {
-	if len(bucket) < 2 {
-		fmt.Println("you must specify a bucket")
+func listObjects(bucket string, path string) (files []s3File) {
+	if bucket == "" {
+		fmt.Println("Bucket parameter cannot be blank")
 		return nil
 	}
 
