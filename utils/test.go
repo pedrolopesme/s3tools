@@ -24,17 +24,23 @@ func captureOutput(f func()) string {
 	return buf.String()
 }
 
-type mockedEmptyFile struct {
+// mockedS3BufferedFile allows to mock an S3BufferedFile,
+// storing a given value to be returned during tests.
+type mockedS3BufferedFile struct {
 	returnValue []byte
 	s3BufferedFile
 }
 
-func (f mockedEmptyFile) GetBufferedContent() ([]byte, error) {
+// GetBufferedContent returns a given value of type
+// []byte from mockedS3BufferedFile
+func (f mockedS3BufferedFile) GetBufferedContent() ([]byte, error) {
 	return f.returnValue, nil
 }
 
-func newMockedFile(returnedValue []byte) mockedEmptyFile {
-	return mockedEmptyFile{
+// newMockedFile builds a mockedS3File, injecting a
+// value of type []byte to be used during tests.
+func newMockedFile(returnedValue []byte) mockedS3BufferedFile {
+	return mockedS3BufferedFile{
 		returnValue: returnedValue,
 		s3BufferedFile: s3BufferedFile{
 			Bucket: "test",
