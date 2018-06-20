@@ -54,10 +54,23 @@ func newMockedFile(returnedValue []byte) mockedS3BufferedFile {
 // mockS3Client allows us to replace S3 default implementation
 type mockS3Client struct {
 	s3iface.S3API
+	files []*s3.Object
 }
 
 // mockS3Client allows us to replace S3 default implementation
-func (m *mockS3Client) ListObjectsPages(*s3.ListObjectsInput, func(*s3.ListObjectsOutput, bool) bool) error {
+func (m *mockS3Client) ListObjectsPages(listObjectsInput *s3.ListObjectsInput, callback func(*s3.ListObjectsOutput, bool) bool) error {
+	callback(&s3.ListObjectsOutput{Contents: m.files}, true)
 	return nil
 }
 
+// newMockedS3Client builds a mockedS3Client, injecting a
+// list of files to be tested
+func newMockedS3Client(files []string) (*Bucket) {
+	var objects []*s3.Object
+	for _, file := range files {
+		newFilePointer := file
+		objects = append(objects, &s3.Object{Key: &newFilePointer})
+	}
+
+	return NewBucket(&mockS3Client{files: objects}, "dummy-bucket", "some-path")
+}
