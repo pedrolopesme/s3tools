@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"io"
 	"os"
+	"github.com/aws/aws-sdk-go/service/s3/s3iface"
+	"github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Captures the output by replacing the
@@ -48,3 +50,14 @@ func newMockedFile(returnedValue []byte) mockedS3BufferedFile {
 		},
 	}
 }
+
+// mockS3Client allows us to replace S3 default implementation
+type mockS3Client struct {
+	s3iface.S3API
+}
+
+// mockS3Client allows us to replace S3 default implementation
+func (m *mockS3Client) ListObjectsPages(*s3.ListObjectsInput, func(*s3.ListObjectsOutput, bool) bool) error {
+	return nil
+}
+
