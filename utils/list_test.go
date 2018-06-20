@@ -29,7 +29,7 @@ import (
 
 func TestListObjectsWithoutBucket(test *testing.T) {
 	output := captureOutput(func() {
-		listObjects("", "some-path")
+		ListObjects("", "some-path")
 	})
 
 	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
@@ -40,7 +40,10 @@ func TestListObjectsWithoutAwsSession(test *testing.T) {
 }
 
 func TestListObjectsWithNoObjects(test *testing.T) {
-	assert.True(test, false)
+	bucket := NewBucket(&mockS3Client{}, "dummy-bucket", "some-path")
+	files, err := bucket.GetFiles()
+	assert.Nil(test, err)
+	assert.Empty(test, files)
 }
 
 func TestListObjectsWithOneObject(test *testing.T) {
