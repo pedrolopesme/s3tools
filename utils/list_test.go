@@ -35,22 +35,39 @@ func TestListObjectsWithoutBucket(test *testing.T) {
 	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
 }
 
-func TestListObjectsWithoutAwsSession(test *testing.T) {
-	assert.True(test, false)
-}
-
 func TestListObjectsWithNoObjects(test *testing.T) {
-	bucket := NewBucket(&mockS3Client{}, "dummy-bucket", "some-path")
+	bucket := newMockedS3Client([]string{})
 	files, err := bucket.GetFiles()
 	assert.Nil(test, err)
 	assert.Empty(test, files)
 }
 
 func TestListObjectsWithOneObject(test *testing.T) {
-	assert.True(test, false)
+	file1 := "dummy-file"
+	bucket := newMockedS3Client([]string{file1})
+
+	files, err := bucket.GetFiles()
+	assert.Nil(test, err)
+	assert.NotEmpty(test, files)
+	assert.Equal(test, 1, len(files))
+	assert.Equal(test, file1, files[0].GetPath())
 }
 
 func TestListObjectsWithMultipleObjects(test *testing.T) {
-	assert.True(test, false)
-}
+	f1 := "dummy-file 1"
+	f2 := "dummy-file 2"
+	f3 := "dummy-file 3"
+	f4 := "dummy-file 4"
+	f5 := "dummy-file 5"
+	bucket := newMockedS3Client([]string{f1, f2, f3, f4, f5})
 
+	files, err := bucket.GetFiles()
+	assert.Nil(test, err)
+	assert.NotEmpty(test, files)
+	assert.Equal(test, 5, len(files))
+	assert.Equal(test, f1, files[0].GetPath())
+	assert.Equal(test, f2, files[1].GetPath())
+	assert.Equal(test, f3, files[2].GetPath())
+	assert.Equal(test, f4, files[3].GetPath())
+	assert.Equal(test, f5, files[4].GetPath())
+}
