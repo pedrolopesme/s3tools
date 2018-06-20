@@ -82,7 +82,13 @@ func GrepFiles(bucket string, pattern string, path string) {
 		return
 	}
 
-	for _, file := range listObjects(bucket, path) {
+	files, err := ListObjects(bucket, path)
+	if err != nil {
+		fmt.Println("It was impossible retrieve files from bucket", err)
+		return
+	}
+
+	for _, file := range files {
 		GrepFile(file, pattern)
 	}
 	fmt.Println("GrepFiles finished.")
