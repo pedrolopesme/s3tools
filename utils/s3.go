@@ -5,6 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"fmt"
 )
 
 type s3BufferedFile struct {
@@ -25,6 +26,11 @@ func (f s3BufferedFile) GetPath() string {
 // GetBufferedContent creates a S3 session and reads the content
 // of a file writing it into a buffer.
 func (f s3BufferedFile) GetBufferedContent() (buf []byte, err error) {
+	if f.Bucket == "" {
+		fmt.Println("Aborting due to empty bucket")
+		return
+	}
+
 	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
 	awsBuffer := &aws.WriteAtBuffer{}
