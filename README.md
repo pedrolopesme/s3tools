@@ -11,6 +11,7 @@
   <a href="https://travis-ci.org/pedrolopesme/s3tools"> <img src="https://api.travis-ci.org/pedrolopesme/s3tools.svg?branch=master" /></a>
   <a href="https://goreportcard.com/report/github.com/pedrolopesme/s3tools"> <img src="https://goreportcard.com/badge/github.com/pedrolopesme/s3tools" /></a>
   <a href="https://codeclimate.com/github/pedrolopesme/s3tools/maintainability"> <img src="https://api.codeclimate.com/v1/badges/802610de39eefd49d4e4/maintainability" /></a>
+  <a href='https://coveralls.io/github/pedrolopesme/s3tools?branch=master'><img src='https://coveralls.io/repos/github/pedrolopesme/s3tools/badge.svg?branch=master' alt='Coverage Status' /></a>
 </p>
 <br>
 
@@ -22,6 +23,7 @@ This project provides a Makefile with all common operations need to develop, tes
 * test: runs all tests
 * clean: removes binaries
 * fmt: runs gofmt for all go files
+* coverage: runs tests coversage build on Coveralls. It expects you to have declared COVERALLS_S3TOOLS_KEY env var.
 
 ### Running tests
 
