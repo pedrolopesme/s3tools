@@ -22,7 +22,7 @@ func (bucket *Bucket) GetFiles() (files []s3File, err error) {
 
 	fnCallback := func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
 		for _, s3Object := range p.Contents {
-			file := NewBufferedFile(bucket.Name, string(*s3Object.Key))
+			file := newBufferedFile(bucket.Name, string(*s3Object.Key))
 			files = append(files, file)
 		}
 		return true

@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetBufferedContentWithEmptyBucket(test *testing.T) {
-	file := NewBufferedFile("", "some-path")
+	file := newBufferedFile("", "some-path")
 	buf, err := file.GetBufferedContent()
 	assert.Empty(test, err)
 	assert.Empty(test, buf)

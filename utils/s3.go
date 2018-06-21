@@ -49,10 +49,10 @@ func (f s3BufferedFile) GetBufferedContent() (buf []byte, err error) {
 	return
 }
 
-// NewBufferedFile returns a concrete type of s3BufferedFile
+// newBufferedFile returns a concrete type of s3BufferedFile
 // properly initialized. Following recommendations found at
 // https://github.com/golang/go/wiki/CodeReviewComments#interfaces
-func NewBufferedFile(bucket string, path string) s3BufferedFile {
+func newBufferedFile(bucket string, path string) s3BufferedFile {
 	return s3BufferedFile{
 		Bucket: bucket,
 		Path:   path,
