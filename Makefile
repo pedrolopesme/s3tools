@@ -24,3 +24,8 @@ clean:
 fmt:
 	@echo "Running gofmt for all project files"
 	$(GOFMT) -w */*.go
+
+coverage:
+	@echo "Running coverage via Coveralls. It expects you tu have set COVERALLS_S3TOOLS_KEY env with coveralls key."
+	$(GOCMD) get github.com/mattn/goveralls
+	goveralls -repotoken $(COVERALLS_S3TOOLS_KEY)
