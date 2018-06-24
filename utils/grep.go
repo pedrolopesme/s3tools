@@ -26,7 +26,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"strings"
+	"regexp"
 	. "github.com/logrusorgru/aurora"
 )
 
@@ -38,7 +38,16 @@ type s3File interface {
 
 // GrepLine search for a string pattern in a line
 func GrepLine(filePath string, line string, pattern string) {
-	if strings.Contains(line, pattern) {
+	// Avoiding patterns beginning with wildcard due to
+	// regex violations.
+	if string(pattern)[0] == '*' {
+		pattern = pattern[1:len(pattern) -1]
+	}
+
+	re := regexp.MustCompile(pattern)
+	matches :=  re.FindAllStringIndex(line, -1)
+
+	if len(matches) > 0 {
 		fmt.Println(Bold(Cyan(filePath)), ":", line)
 	}
 }
