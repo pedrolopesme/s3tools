@@ -1,5 +1,6 @@
 <h1 align="center">
   <br>
+  <img src="https://cdn.rawgit.com/pedrolopesme/s3tools/56bed919/docs/logo.svg" width="64px" /> <br />
   S3 Tools
   <br>
 </h1>
@@ -18,7 +19,7 @@
 
 S3Tools is design to provider a set of utilities relate to S3 files manipulation, such as:
 
-| [Grep](docs/GREP.md) | 
+| <center> [<img src="https://cdn.rawgit.com/pedrolopesme/s3tools/56bed919/docs/magnifying-glass.svg" />  <br/> Grep](docs/GREP.md) </center> | 
 |---|
 
 ### Makefile
@@ -58,7 +59,7 @@ These are the main external packages that make up Call It:
 | **[Properties](https://github.com/magiconair/properties)** | **Java properties scanner for Go** |
 | **[Testify](https://github.com/stretchr/testify)** | **A toolkit with common assertions and mocks that plays nicely with the standard library** |
 
-S3Tools icon made by [Freepik](http://www.freepik.com/).
+S3Tools icons made by [Freepik](http://www.freepik.com/).
 
 ### License
 
