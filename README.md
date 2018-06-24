@@ -2,7 +2,6 @@
   <br>
   S3 Tools
   <br>
-  <br>
 </h1>
 
 <h4 align="center">S3 common utilities</h4>
@@ -15,6 +14,13 @@
 </p>
 <br>
 
+### Usage
+
+S3Tools is design to provider a set of utilities relate to S3 files manipulation, such as:
+
+| [Grep](docs/GREP.md) | 
+|---|
+
 ### Makefile
 
 This project provides a Makefile with all common operations need to develop, test and build call-it.
@@ -23,7 +29,7 @@ This project provides a Makefile with all common operations need to develop, tes
 * test: runs all tests
 * clean: removes binaries
 * fmt: runs gofmt for all go files
-* coverage: runs tests coversage build on Coveralls. It expects you to have declared COVERALLS_S3TOOLS_KEY env var.
+* coverage: runs tests coverage build on Coveralls. It expects you to have declared COVERALLS_S3TOOLS_KEY env var.
 
 ### Running tests
 
@@ -52,8 +58,9 @@ These are the main external packages that make up Call It:
 | **[Properties](https://github.com/magiconair/properties)** | **Java properties scanner for Go** |
 | **[Testify](https://github.com/stretchr/testify)** | **A toolkit with common assertions and mocks that plays nicely with the standard library** |
 
+S3Tools icon made by [Freepik](http://www.freepik.com/).
 
 ### License
 
 [MIT](LICENSE.md)
-~
+
