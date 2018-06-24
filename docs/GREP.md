@@ -17,8 +17,12 @@ s3tools grep my-bucket "search string"
 $ s3tools grep bucket-test dummy
 ```
 
-Ex: Filter all lines containing an URL:
+Ex1: Filter all lines containing a string "error"
+```
+s3tools grep bucket-test error
+```
 
+Ex2: Filter all lines containing an URL:
 ```
 s3tools grep bucket-test "(http|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?"
 ```
