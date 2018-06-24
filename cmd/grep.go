@@ -37,6 +37,11 @@ var grepCmd = &cobra.Command{
 
 s3tools grep my-bucket "search string"`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) < 2 {
+			fmt.Println("You must provide bucket and a search pattern")
+			return
+		}
+
 		bucket := args[0]
 		pattern := args[1]
 
