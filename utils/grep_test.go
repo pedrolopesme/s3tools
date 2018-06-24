@@ -92,3 +92,39 @@ func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
 	})
 	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1, dummy value 2, dummy value 3\n", output)
 }
+
+func TestGrepWithWildcardAtTheEndOfPatternWithAMatch(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "dummy*")
+	})
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
+}
+
+func TestGrepWithWildcardAtTheEndOfPatternWithoutAMatch(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "whatever*")
+	})
+	assert.Equal(test, "", output)
+}
+
+func TestGrepWithWildcardAtTheBeginningOfPatternWithAMatch(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "*value")
+	})
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
+}
+
+func TestGrepWithWildcardAtTheBeginningOfPatternWithoutAMatch(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "*whatever")
+	})
+	assert.Equal(test, "", output)
+}
