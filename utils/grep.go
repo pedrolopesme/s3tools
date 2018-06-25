@@ -36,6 +36,17 @@ type s3File interface {
 	GetBufferedContent() ([]byte, error)
 }
 
+// TODO add tests and refactor
+func colorizeMatches(line string, matches [][]int) (string) {
+	var colorizedLine string
+	for _, index := range matches {
+		colorizedLine = line[0:index[0]]
+		colorizedLine += Bold(Red(line[index[0]:index[1]])).String()
+		colorizedLine += line[index[1]:len(line)-1]
+	}
+	return colorizedLine
+}
+
 // GrepLine search for a string pattern in a line
 func GrepLine(filePath string, line string, pattern string) {
 	// Avoiding patterns beginning with wildcard due to
@@ -48,7 +59,9 @@ func GrepLine(filePath string, line string, pattern string) {
 	matches :=  re.FindAllStringIndex(line, -1)
 
 	if len(matches) > 0 {
+		line = colorizeMatches(line, matches)
 		fmt.Println(Bold(Cyan(filePath)), ":", line)
+		return
 	}
 }
 
