@@ -42,7 +42,7 @@ func colorizeMatches(line string, matches [][]int) (string) {
 	for _, index := range matches {
 		colorizedLine = line[0:index[0]]
 		colorizedLine += Bold(Red(line[index[0]:index[1]])).String()
-		colorizedLine += line[index[1]:len(line)-1]
+		colorizedLine += line[index[1]:len(line)]
 	}
 	return colorizedLine
 }
