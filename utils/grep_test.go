@@ -81,7 +81,7 @@ func TestGrepWithMatching(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : \x1b[1;31mdummy\x1b[0m value 1\n", output)
 }
 
 func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
@@ -90,7 +90,7 @@ func TestGrepWithMultipleMatchingAtTheSameLine(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "dummy")
 	})
-	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1, dummy value 2, dummy value 3\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : \x1b[1;31mdummy\x1b[0m value 1, \x1b[1;31mdummy\x1b[0m value 2, \x1b[1;31mdummy\x1b[0m value 3\n", output)
 }
 
 func TestGrepWithWildcardAtTheEndOfPatternWithAMatch(test *testing.T) {
@@ -99,7 +99,7 @@ func TestGrepWithWildcardAtTheEndOfPatternWithAMatch(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "dummy*")
 	})
-	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : \x1b[1;31mdummy\x1b[0m value 1\n", output)
 }
 
 func TestGrepWithWildcardAtTheEndOfPatternWithoutAMatch(test *testing.T) {
@@ -117,7 +117,7 @@ func TestGrepWithWildcardAtTheBeginningOfPatternWithAMatch(test *testing.T) {
 	output := captureOutput(func() {
 		GrepFile(files, "*value")
 	})
-	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy value 1\n", output)
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : dummy \x1b[1;31mvalu\x1b[0me 1\n", output)
 }
 
 func TestGrepWithWildcardAtTheBeginningOfPatternWithoutAMatch(test *testing.T) {
