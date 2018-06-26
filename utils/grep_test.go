@@ -128,3 +128,21 @@ func TestGrepWithWildcardAtTheBeginningOfPatternWithoutAMatch(test *testing.T) {
 	})
 	assert.Equal(test, "", output)
 }
+
+func TestColorizedGrepWithOneMatching(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "dummy")
+	})
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : \x1b[1;31mdummy\x1b[0m value 1\n", output)
+}
+
+func TestColorizedGrepWithMultipleMatching(test *testing.T) {
+	files := newMockedFile([]byte("dummy value 1, dummy value 2, dummy value 3"))
+
+	output := captureOutput(func() {
+		GrepFile(files, "dummy")
+	})
+	assert.Equal(test, "\x1b[1;36mtest\x1b[0m : \x1b[1;31mdummy\x1b[0m value 1, \x1b[1;31mdummy\x1b[0m value 2, \x1b[1;31mdummy\x1b[0m value 3\n", output)
+}
