@@ -36,15 +36,25 @@ type s3File interface {
 	GetBufferedContent() ([]byte, error)
 }
 
-// TODO add tests and refactor
 func colorizeMatches(line string, matches [][]int) (string) {
-	var colorizedLine string
-	for _, index := range matches {
-		colorizedLine = line[0:index[0]]
-		colorizedLine += Bold(Red(line[index[0]:index[1]])).String()
-		colorizedLine += line[index[1]:len(line)]
+	output := ""
+	pointer := 0
+	for _, match := range matches {
+		start := match[0]
+		end := match[1]
+
+		if start >= pointer {
+			output += line[pointer:start]
+		}
+
+		output += Bold(Red(line[start:end])).String()
+		pointer = end
 	}
-	return colorizedLine
+
+	if pointer < (len(line) -1) {
+		output += line[pointer:]
+	}
+	return output
 }
 
 // GrepLine search for a string pattern in a line
