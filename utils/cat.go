@@ -24,9 +24,39 @@ package utils
 
 import (
 	"fmt"
+	"regexp"
 )
 
-func filterFiles(filesPattern []string, bucketFiles []s3File) (files []string, err error) {
+// printFileContent tries to print the content of a
+// files stored at a s3 bucket
+// TODO implement and test
+func printFileContent(file s3File) {
+	fmt.Println("Printing file content", file)
+}
+
+// match tries to match a fileName using a regex pattern
+// TODO add tests
+func match(pattern string, fileName string) bool {
+	result, err := regexp.Match(pattern, []byte(fileName))
+	if err != nil {
+		fmt.Println("It was impossible to evaluate", fileName, "using pattern", pattern, "due to", err)
+		return false
+	}
+	return result
+}
+
+// filterFiles gets all files from the bucket and filters all files
+// whose name matches any of the given filename patterns
+// TODO add tests
+func filterFiles(filesPattern []string, bucketFiles []s3File) (files []s3File, err error) {
+	for _, bucketFile := range bucketFiles {
+		filename := bucketFile.GetPath()
+		for _, pattern := range filesPattern {
+			if match(pattern, filename) {
+				files = append(files, bucketFile)
+			}
+		}
+	}
 	return
 }
 
@@ -48,6 +78,14 @@ func CatFiles(bucket string, filesPattern []string) {
 		return
 	}
 
-	filterFiles(filesPattern, bucketFiles)
+	files, err := filterFiles(filesPattern, bucketFiles)
+	if err != nil {
+		fmt.Println("Something happened while filtering files:", err)
+		return
+	}
+
+	for _, file:= range files {
+		printFileContent(file)
+	}
 	fmt.Println("CatFiles finished.")
 }
