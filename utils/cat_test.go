@@ -27,10 +27,18 @@ import (
 	"testing"
 )
 
-func TestCatFilesShouldNotRunWithoutAUserInput(test *testing.T) {
+func TestCatFilesShouldNotRunWithoutFileNames (test *testing.T) {
 	output := captureOutput(func() {
-		CatFiles([]string{})
+		CatFiles("some-bucket", []string{})
 	})
 
 	assert.Equal(test, "You must provide at least one file name\n", output)
+}
+
+func TestCatFilesWithoutBucket(test *testing.T) {
+	output := captureOutput(func() {
+		CatFiles("", []string{"file1"})
+	})
+
+	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
 }
