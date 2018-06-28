@@ -35,9 +35,9 @@ var catCmd = &cobra.Command{
 	Long: `The cat utility reads files sequentially, writing them to the standard output.  
 The file operands are processed in command-line order. For example:
 
-	s3tools cat file1
+	s3tools cat file1 file2 file3
 
-will print the contents of file1 to the standard output.`,
+will print the contents of both file1, file2 and file3 to the standard output.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("cat called")
 	},
