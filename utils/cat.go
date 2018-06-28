@@ -35,8 +35,15 @@ func printFileContent(file s3File) {
 }
 
 // match tries to match a fileName using a regex pattern
-// TODO add tests
 func match(pattern string, fileName string) bool {
+	if pattern == ""{
+		fmt.Println("Pattern parameter cannot be blank")
+		return false
+	}
+	if fileName == ""{
+		fmt.Println("Filename parameter cannot be blank")
+		return false
+	}
 	result, err := regexp.Match(pattern, []byte(fileName))
 	if err != nil {
 		fmt.Println("It was impossible to evaluate", fileName, "using pattern", pattern, "due to", err)
