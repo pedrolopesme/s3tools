@@ -2,10 +2,10 @@ package utils
 
 import (
 	"bytes"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 	"io"
 	"os"
-	"github.com/aws/aws-sdk-go/service/s3/s3iface"
-	"github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Captures the output by replacing the
@@ -65,7 +65,7 @@ func (m *mockS3Client) ListObjectsPages(listObjectsInput *s3.ListObjectsInput, c
 
 // newMockedS3Client builds a mockedS3Client, injecting a
 // list of files to be tested
-func newMockedS3Client(files []string) (*Bucket) {
+func newMockedS3Client(files []string) *Bucket {
 	var objects []*s3.Object
 	for _, file := range files {
 		newFilePointer := file

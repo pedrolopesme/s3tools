@@ -26,8 +26,8 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"regexp"
 	. "github.com/logrusorgru/aurora"
+	"regexp"
 )
 
 type s3File interface {
@@ -37,7 +37,7 @@ type s3File interface {
 }
 
 // colorizeMatches highlight all matches in a line
-func colorizeMatches(line string, matches [][]int) (string) {
+func colorizeMatches(line string, matches [][]int) string {
 	output := ""
 	pointer := 0
 	for _, match := range matches {
@@ -52,7 +52,7 @@ func colorizeMatches(line string, matches [][]int) (string) {
 		pointer = end
 	}
 
-	if pointer < (len(line) -1) {
+	if pointer < (len(line) - 1) {
 		output += line[pointer:]
 	}
 	return output
@@ -63,11 +63,11 @@ func GrepLine(filePath string, line string, pattern string) {
 	// Avoiding patterns beginning with wildcard due to
 	// regex violations.
 	if string(pattern)[0] == '*' {
-		pattern = pattern[1:len(pattern) -1]
+		pattern = pattern[1 : len(pattern)-1]
 	}
 
 	re := regexp.MustCompile(pattern)
-	matches :=  re.FindAllStringIndex(line, -1)
+	matches := re.FindAllStringIndex(line, -1)
 
 	if len(matches) > 0 {
 		line = colorizeMatches(line, matches)

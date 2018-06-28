@@ -23,8 +23,8 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/pedrolopesme/s3tools/utils"
+	"github.com/spf13/cobra"
 )
 
 // catCmd represents the cat command

@@ -23,9 +23,9 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/pedrolopesme/s3tools/utils"
 	"github.com/spf13/cobra"
-	"fmt"
 )
 
 // grepCmd represents the grep command

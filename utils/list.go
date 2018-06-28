@@ -2,9 +2,9 @@ package utils
 
 import (
 	"fmt"
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 )
 
@@ -36,7 +36,7 @@ func (bucket *Bucket) GetFiles() (files []s3File, err error) {
 	return
 }
 
-func NewBucket(client s3iface.S3API, bucketName string, path string) (*Bucket) {
+func NewBucket(client s3iface.S3API, bucketName string, path string) *Bucket {
 	return &Bucket{
 		Client: client,
 		Name:   bucketName,

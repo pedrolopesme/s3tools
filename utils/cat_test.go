@@ -27,7 +27,7 @@ import (
 	"testing"
 )
 
-func TestCatFilesShouldNotRunWithoutFileNames (test *testing.T) {
+func TestCatFilesShouldNotRunWithoutFileNames(test *testing.T) {
 	output := captureOutput(func() {
 		CatFiles("some-bucket", []string{})
 	})
