@@ -23,9 +23,8 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
+	"github.com/pedrolopesme/s3tools/utils"
 )
 
 // catCmd represents the cat command
@@ -39,7 +38,9 @@ The file operands are processed in command-line order. For example:
 
 will print the contents of both file1, file2 and file3 to the standard output.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("cat called")
+		bucket := args[0]
+		files := args[1:]
+		utils.CatFiles(bucket, files)
 	},
 }
 
