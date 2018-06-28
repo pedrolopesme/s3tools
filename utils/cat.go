@@ -26,19 +26,28 @@ import (
 	"fmt"
 )
 
-// Array of files found by filename expression parser
-type files []string
+func filterFiles(filesPattern []string, bucketFiles []s3File) (files []string, err error) {
+	return
+}
 
 // CatFiles will read all files matching their name to the user input
 // and print the content to the standard output
-func CatFiles(bucket string, files []string) {
+func CatFiles(bucket string, filesPattern []string) {
 	if len(bucket) ==0  {
 		fmt.Println("Bucket parameter cannot be blank")
 		return
 	}
-	if len(files) ==0  {
+	if len(filesPattern) ==0  {
 		fmt.Println("You must provide at least one file name")
 		return
 	}
+
+	bucketFiles, err := ListObjects(bucket, "")
+	if err != nil {
+		fmt.Println("Something happened while retrieving filesPattern from bucket:", err)
+		return
+	}
+
+	filterFiles(filesPattern, bucketFiles)
 	fmt.Println("CatFiles finished.")
 }
