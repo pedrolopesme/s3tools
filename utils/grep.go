@@ -36,6 +36,7 @@ type s3File interface {
 	GetBufferedContent() ([]byte, error)
 }
 
+// colorizeMatches highlight all matches in a line
 func colorizeMatches(line string, matches [][]int) (string) {
 	output := ""
 	pointer := 0
