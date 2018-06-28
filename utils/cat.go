@@ -31,10 +31,14 @@ type files []string
 
 // CatFiles will read all files matching their name to the user input
 // and print the content to the standard output
-func CatFiles(files []string) {
+func CatFiles(bucket string, files []string) {
+	if len(bucket) ==0  {
+		fmt.Println("Bucket parameter cannot be blank")
+		return
+	}
 	if len(files) ==0  {
 		fmt.Println("You must provide at least one file name")
 		return
 	}
-	fmt.Println("GrepFiles finished.")
+	fmt.Println("CatFiles finished.")
 }
