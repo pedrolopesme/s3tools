@@ -42,3 +42,34 @@ func TestCatFilesWithoutBucket(test *testing.T) {
 
 	assert.Equal(test, "Bucket parameter cannot be blank\n", output)
 }
+
+func TestMatchFileWithoutPattern(test *testing.T) {
+	output := captureOutput(func() {
+		match("", "dummy-file")
+	})
+
+	assert.Equal(test, "Pattern parameter cannot be blank\n", output)
+}
+
+func TestMatchFileWithoutFileName(test *testing.T) {
+	output := captureOutput(func() {
+		match("dummy-pattern", "")
+	})
+
+	assert.Equal(test, "Filename parameter cannot be blank\n", output)
+}
+
+func TestMatchFileMatchingFileInBucketRootDir(test *testing.T) {
+	matched := match("file1", "file1")
+	assert.True(test, matched)
+}
+
+func TestMatchFileMatchingFileInBucketSubDir(test *testing.T) {
+	matched := match("file1", "dir1/dir2/dir3/file1")
+	assert.True(test, matched)
+}
+
+func TestMatchFileWithoutMatching(test *testing.T) {
+	matched := match("file1", "not-file-1")
+	assert.False(test, matched)
+}
