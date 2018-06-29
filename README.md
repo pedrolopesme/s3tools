@@ -17,7 +17,7 @@
 
 ### Usage
 
-S3Tools is design to provider a set of utilities relate to S3 files manipulation, such as:
+S3Tools is design to provider a set of utilities related to S3 files manipulation, such as:
 
 | <center> [<img src="https://cdn.rawgit.com/pedrolopesme/s3tools/56bed919/docs/magnifying-glass.svg" />  <br/> Grep](docs/GREP.md) </center> | 
 |---|
