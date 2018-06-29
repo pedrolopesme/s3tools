@@ -73,3 +73,68 @@ func TestMatchFileWithoutMatching(test *testing.T) {
 	matched := match("file1", "not-file-1")
 	assert.False(test, matched)
 }
+
+func TestFilterFilesWithNoFilesPattern(test *testing.T) {
+	output := captureOutput(func() {
+		filterFiles([]string{}, []s3File{ newMockedFile([]byte("teste")) })
+	})
+
+	assert.Equal(test, "You must provide at least one file pattern\n", output)
+}
+
+func TestFilterFilesWithNoFiles(test *testing.T) {
+	output := captureOutput(func() {
+		filterFiles([]string{"dummy-patten"}, []s3File{})
+	})
+
+	assert.Equal(test, "You must provide at least one file from the bucket\n", output)
+}
+
+func TestFilterFilesWithNoMatches(test *testing.T) {
+	patterns := []string{"dummy"}
+	bucketFiles := []s3File{
+		newMockedFile([]byte("test 1")),
+		newMockedFile([]byte("test 2")),
+		newMockedFile([]byte("test 3")),
+
+	}
+
+	filesFound, err := filterFiles(patterns, bucketFiles)
+	assert.Nil(test, err)
+	assert.Empty(test, filesFound)
+}
+
+func TestFilterFilesWithOneMatch(test *testing.T) {
+	patterns := []string{"my-file"}
+	bucketFiles := []s3File{
+		newMockedFileWithPath([]byte("content 1"), "dummy 1"),
+		newMockedFileWithPath([]byte("content 2"), "dummy 2"),
+		newMockedFileWithPath([]byte("content 3"), "my-file"),
+	}
+
+	filesFound, err := filterFiles(patterns, bucketFiles)
+	assert.Nil(test, err)
+	assert.NotEmpty(test, filesFound)
+	assert.Equal(test, len(filesFound), 1)
+	assert.Equal(test, filesFound[0].GetPath(), bucketFiles[2].GetPath())
+}
+
+func TestFilterFilesWithMultipleMatches(test *testing.T) {
+	patterns := []string{"my-file"}
+	bucketFiles := []s3File{
+		newMockedFileWithPath([]byte("content 1"), "dummy 1"),
+		newMockedFileWithPath([]byte("content 2"), "dummy 2"),
+		newMockedFileWithPath([]byte("content 3"), "my-file 1"),
+		newMockedFileWithPath([]byte("content 4"), "my-file 2"),
+		newMockedFileWithPath([]byte("content 5"), "my-file 3"),
+
+	}
+
+	filesFound, err := filterFiles(patterns, bucketFiles)
+	assert.Nil(test, err)
+	assert.NotEmpty(test, filesFound)
+	assert.Equal(test, len(filesFound), 3)
+	assert.Equal(test, filesFound[0].GetPath(), bucketFiles[2].GetPath())
+	assert.Equal(test, filesFound[1].GetPath(), bucketFiles[3].GetPath())
+	assert.Equal(test, filesFound[2].GetPath(), bucketFiles[4].GetPath())
+}
