@@ -27,11 +27,14 @@ import (
 	"regexp"
 )
 
-// printFileContent tries to print the content of a
-// files stored at a s3 bucket
-// TODO implement and test
-func printFileContent(file s3File) {
-	fmt.Println("Printing file content", file)
+// printFilesContent tries to print the content of
+// files stored at a s3 bucket to the standard output
+func printFilesContent(files []s3File) {
+	for _, file := range files {
+		if contentBuffer, err := file.GetBufferedContent(); err == nil {
+			fmt.Println(fmt.Sprintf("%s", contentBuffer))
+		}
+	}
 }
 
 // match tries to match a fileName using a regex pattern
@@ -81,6 +84,7 @@ func CatFiles(bucket string, filesPattern []string) {
 		fmt.Println("Bucket parameter cannot be blank")
 		return
 	}
+
 	if len(filesPattern) == 0 {
 		fmt.Println("You must provide at least one file name")
 		return
@@ -98,8 +102,6 @@ func CatFiles(bucket string, filesPattern []string) {
 		return
 	}
 
-	for _, file := range files {
-		printFileContent(file)
-	}
+	printFilesContent(files)
 	fmt.Println("CatFiles finished.")
 }
