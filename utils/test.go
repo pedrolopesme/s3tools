@@ -51,6 +51,15 @@ func newMockedFile(returnedValue []byte) mockedS3BufferedFile {
 	}
 }
 
+// newMockedFileWithPath builds a mockedS3File line
+// newMockedFile([]byte) does, but it allows you to specify
+// the path name.
+func newMockedFileWithPath(returnedValue []byte, path string) mockedS3BufferedFile {
+	mockedFile := newMockedFile(returnedValue)
+	mockedFile.Path = path
+	return mockedFile
+}
+
 // mockS3Client allows us to replace S3 default implementation
 type mockS3Client struct {
 	s3iface.S3API
