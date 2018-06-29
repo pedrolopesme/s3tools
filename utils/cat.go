@@ -36,11 +36,11 @@ func printFileContent(file s3File) {
 
 // match tries to match a fileName using a regex pattern
 func match(pattern string, fileName string) bool {
-	if pattern == ""{
+	if pattern == "" {
 		fmt.Println("Pattern parameter cannot be blank")
 		return false
 	}
-	if fileName == ""{
+	if fileName == "" {
 		fmt.Println("Filename parameter cannot be blank")
 		return false
 	}

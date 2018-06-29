@@ -76,7 +76,7 @@ func TestMatchFileWithoutMatching(test *testing.T) {
 
 func TestFilterFilesWithNoFilesPattern(test *testing.T) {
 	output := captureOutput(func() {
-		filterFiles([]string{}, []s3File{ newMockedFile([]byte("teste")) })
+		filterFiles([]string{}, []s3File{newMockedFile([]byte("teste"))})
 	})
 
 	assert.Equal(test, "You must provide at least one file pattern\n", output)
@@ -96,7 +96,6 @@ func TestFilterFilesWithNoMatches(test *testing.T) {
 		newMockedFile([]byte("test 1")),
 		newMockedFile([]byte("test 2")),
 		newMockedFile([]byte("test 3")),
-
 	}
 
 	filesFound, err := filterFiles(patterns, bucketFiles)
@@ -127,7 +126,6 @@ func TestFilterFilesWithMultipleMatches(test *testing.T) {
 		newMockedFileWithPath([]byte("content 3"), "my-file 1"),
 		newMockedFileWithPath([]byte("content 4"), "my-file 2"),
 		newMockedFileWithPath([]byte("content 5"), "my-file 3"),
-
 	}
 
 	filesFound, err := filterFiles(patterns, bucketFiles)
