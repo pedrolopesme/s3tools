@@ -54,8 +54,15 @@ func match(pattern string, fileName string) bool {
 
 // filterFiles gets all files from the bucket and filters all files
 // whose name matches any of the given filename patterns
-// TODO add tests
 func filterFiles(filesPattern []string, bucketFiles []s3File) (files []s3File, err error) {
+	if len(filesPattern) == 0 {
+		fmt.Println("You must provide at least one file pattern")
+	}
+
+	if len(bucketFiles) == 0 {
+		fmt.Println("You must provide at least one file from the bucket")
+	}
+
 	for _, bucketFile := range bucketFiles {
 		filename := bucketFile.GetPath()
 		for _, pattern := range filesPattern {
