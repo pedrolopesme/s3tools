@@ -136,3 +136,33 @@ func TestFilterFilesWithMultipleMatches(test *testing.T) {
 	assert.Equal(test, filesFound[1].GetPath(), bucketFiles[3].GetPath())
 	assert.Equal(test, filesFound[2].GetPath(), bucketFiles[4].GetPath())
 }
+
+func TestPrintFileContentWithNoFiles(test *testing.T) {
+	output := captureOutput(func() {
+		printFilesContent([]s3File{})
+	})
+
+	assert.Equal(test, "", output)
+}
+
+func TestPrintFileContentWithOneFile(test *testing.T) {
+	output := captureOutput(func() {
+		printFilesContent([]s3File{
+			newMockedFile([]byte("content 1")),
+		})
+	})
+
+	assert.Equal(test, "content 1\n", output)
+}
+
+func TestPrintFileContentWithMultipleFiles(test *testing.T) {
+	output := captureOutput(func() {
+		printFilesContent([]s3File{
+			newMockedFile([]byte("content 1")),
+			newMockedFile([]byte("content 2")),
+			newMockedFile([]byte("content 3")),
+		})
+	})
+
+	assert.Equal(test, "content 1\ncontent 2\ncontent 3\n", output)
+}
