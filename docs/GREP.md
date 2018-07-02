@@ -28,4 +28,4 @@ s3tools grep bucket-test "(http|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=
 ```
 
 By default, s3tools grep command does not store any
-file into your local storage while searching for the given pattern.
+file into your local storage.
