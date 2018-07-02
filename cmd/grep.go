@@ -31,9 +31,11 @@ import (
 // grepCmd represents the grep command
 var grepCmd = &cobra.Command{
 	Use:   "grep",
-	Short: "Search for files in your bucket containing a given text or pattern",
+	Short: "The grep utility searches any given input files, selecting lines that match one or more patterns.",
 
-	Long: `With Grep you can search for files stored at you bucket recursively. For example:
+	Long: `The grep utility searches any given input files, selecting lines that match one or more patterns.  By default, a pattern matches an input line if
+     the regular expression (RE) in the pattern matches the input line without its trailing newline. Each input
+     line that matches at least one of the patterns is written to the standard output. For example:
 
 s3tools grep my-bucket "search string"`,
 	Run: func(cmd *cobra.Command, args []string) {
