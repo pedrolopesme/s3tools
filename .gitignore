@@ -35,3 +35,6 @@ out/
 
 # Ignoring vendor
 _vendor*
+
+# Ignoring gobuild dir
+.gobuild*
