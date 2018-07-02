@@ -25,7 +25,7 @@ s3tools cat bucket-test server_log* error_log*
 
 Ex2: Cat all files whose name start with log, following by a number
 ```
-s3tools grep bucket-test "log[0-9"
+s3tools grep bucket-test "log[0-9]"
 ```
 
 By default, s3tools cat command does not store any file into your local storage.
